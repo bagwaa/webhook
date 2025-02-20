@@ -1,0 +1,37 @@
+{
+    "name": "bagwaa/webhook",
+    "autoload": {
+        "psr-4": {
+            "Bagwaa\\Webhook\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Bagwaa\\Webhook\\Tests\\": "tests"
+        }
+    },
+    "require": {
+        "statamic/cms": "^5.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "pixelfear/composer-dist-plugin": true
+        }
+    },
+    "extra": {
+        "statamic": {
+            "name": "Webhook",
+            "description": "Webhook addon"
+        },
+        "laravel": {
+            "providers": [
+                "Bagwaa\\Webhook\\ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
