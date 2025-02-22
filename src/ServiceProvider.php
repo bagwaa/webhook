@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bagwaa\Webhook;
 
 use Bagwaa\Webhook\Listeners\StatamicEventListener;
+use Edalzell\Forma\Forma;
 use Statamic\Events\CollectionDeleted;
 use Statamic\Events\CollectionSaved;
 use Statamic\Events\EntryDeleted;
@@ -13,8 +14,6 @@ use Statamic\Events\TaxonomyDeleted;
 use Statamic\Events\TaxonomySaved;
 use Statamic\Events\TermDeleted;
 use Statamic\Events\TermSaved;
-use Statamic\Facades\CP\Nav;
-use Statamic\Facades\Permission;
 use Statamic\Providers\AddonServiceProvider;
 
 class ServiceProvider extends AddonServiceProvider
@@ -35,6 +34,8 @@ class ServiceProvider extends AddonServiceProvider
         'cp' => __DIR__ . '/../routes/cp.php',
         'actions' => __DIR__ . '/../routes/actions.php',
     ];
+
+    protected $publishAfterInstall = true; // not publishing after install
 
     protected $listen = [];
 
@@ -58,17 +59,11 @@ class ServiceProvider extends AddonServiceProvider
     {
         parent::bootAddon();
 
-        Nav::extend(function ($nav) {
-            $nav->content('Webhook')
-                ->section('Tools')
-                ->can('view bagwaa-webhook')
-                ->route('bagwaa-webhook.index')
-                ->icon('<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m15 15-6 6m0 0-6-6m6 6V9a6 6 0 0 1 12 0v3" />
-                        </svg>');
-        });
+        Forma::add('bagwaa/webhook');
 
-        Permission::register('view bagwaa-webhook')->label('View Webhook Settings');
+        $this->publishes([
+            __DIR__ . '/../config/webhook.php' => config_path('webhook.php'), // can I not put this in the statamix subfolder in config?
+        ], 'bagwaa/webhook');
     }
 
     protected function loadHelpers(): void

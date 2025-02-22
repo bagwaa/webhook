@@ -12,12 +12,20 @@ This addon does:
 
 ## How to Install
 
-You can install this addon via Composer:
+Require the package using composer.
 
 ``` bash
 composer require bagwaa/webhook
 ```
 
+Publish the configuration file using the following command in the root of your project, this is needed to configure the addon.
+
+``` bash
+php artisan vendor:publish --tag=bagwaa\webhook
+```
+
+```
+
 ## How to Use
 
-Here's where you can explain how to use this wonderful addon.
+In your Statamic control panel, you will see a new section called "Webhook". This is where you can add the webhook URL, each time an event happens in Statamic, the webhook will be triggered using a `POST` request.

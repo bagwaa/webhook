@@ -1,0 +1,12 @@
+tabs:
+  webhook:
+    display: 'Webhook'
+    sections:
+      -
+        fields:
+          -
+            handle: webhook_url
+            field:
+              display: 'Webhook URL'
+              type: text
+              read_only: false
