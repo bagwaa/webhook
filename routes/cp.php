@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Bagwaa\Webhook\Http\Controllers\CpController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
@@ -10,6 +11,6 @@ Route::group([
     ],
     'namespace' => 'Bagwaa\Webhook\Http\Controllers'
 ], function () {
-    Route::get('/bagwaa/webhook/', 'CpController@index')->name('bagwaa-webhook.index');
-    Route::post('/bagwaa/webhook/', 'CpController@update')->name('bagwaa-webhook.update');
+    Route::get('/bagwaa/webhook/', [CpController::class, 'index'])->name('bagwaa-webhook.index');
+    Route::post('/bagwaa/webhook/', [CpController::class, 'update'])->name('bagwaa-webhook.save');
 });
