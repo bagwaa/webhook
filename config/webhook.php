@@ -39,4 +39,7 @@ return [
             'class' => \Statamic\Events\TermDeleted::class,
         ],
     ],
+
+    'webhook_auth_header_key' => 'X-Webhook',
+    'webhook_auth_header_value' => 'Foo',
 ];

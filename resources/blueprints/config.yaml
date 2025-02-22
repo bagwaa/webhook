@@ -3,14 +3,33 @@ tabs:
     display: 'Webhook'
     sections:
       -
+        display: 'Webhook (POST Request)'
         fields:
           -
             handle: webhook_url
             field:
-              display: 'Webhook URL'
+              display: 'URL'
               type: text
               read_only: false
       -
+        display: 'Webhook Authentication Header'
+        fields:
+          -
+            handle: webhook_auth_header_key
+            field:
+              display: 'Header'
+              type: text
+              read_only: false
+              width: 50
+          -
+            handle: webhook_auth_header_value
+            field:
+              display: 'Value'
+              type: text
+              read_only: false
+              width: 50
+      -
+        display: 'Webhook Events'
         fields:
           -
             handle: events.entry_saved.enabled

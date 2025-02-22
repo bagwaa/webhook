@@ -11,7 +11,7 @@ class StatamicEventListener
 {
     public function handle(Event $event): void
     {
-        $webhookUrl = config('webhook.webhook_url');
+        $webhookUrl = config('webhook.webhook_url', []);
 
         foreach (config('webhook.events') as $eventConfig) {
             if ($event::class === $eventConfig['class'] && $eventConfig['enabled']) {
@@ -25,6 +25,18 @@ class StatamicEventListener
 
     private function sendWebhook(string $webhookUrl, Event $event): void
     {
+        $headerKey = config('webhook.webhook_auth_header_key');
+        $headerValue = config('webhook.webhook_auth_header_value');
+
+        if ($headerKey && $headerValue) {
+            Http::withHeader($headerKey, $headerValue)
+                ->post($webhookUrl, [
+                    'entry' => $event,
+                ]);
+
+            return;
+        }
+
         Http::post($webhookUrl, [
             'entry' => $event,
         ]);

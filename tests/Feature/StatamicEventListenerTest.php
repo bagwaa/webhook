@@ -44,6 +44,30 @@ it('sends a webhook when an entry is saved', function () {
     });
 });
 
+it('can send a custom header with the webhook', function () {
+    // arrange
+    config()->set('webhook.webhook_url', 'https://example.com/webhook');
+    config()->set('webhook.webhook_auth_header_key', 'X-Custom-Header');
+    config()->set('webhook.webhook_auth_header_value', 'Custom Value');
+    config()->set('webhook.events.entry_saved.enabled', true);
+
+    Http::fake();
+
+    $entry = Entry::make()
+        ->id('test-entry')
+        ->slug('test-entry')
+        ->collection(Collection::make('blog'))
+        ->data(['title' => 'Test Entry']);
+
+    // act
+    EntrySaved::dispatch($entry);
+
+    // assert
+    Http::assertSent(function ($request) {
+        return $request->url() === 'https://example.com/webhook' && $request->hasHeader('X-Custom-Header', 'Custom Value');
+    });
+});
+
 it('does not send a webhook when an entry is saved if the config is set to false', function () {
     // arrange
     config()->set('webhook.webhook_url', 'https://example.com/webhook');
