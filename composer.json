@@ -1,5 +1,7 @@
 {
     "name": "bagwaa/webhook",
+    "description": "Webhook is an addon for the Laravel based Statamic CMS that allows you to create webhooks when certain events occur.",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Bagwaa\\Webhook\\": "src"
@@ -11,6 +13,7 @@
         }
     },
     "require": {
+        "php": ">=8.2",
         "statamic/cms": "^5.0",
         "edalzell/forma": "^3.0"
     },
@@ -29,7 +32,7 @@
     "extra": {
         "statamic": {
             "name": "Webhook",
-            "description": "Webhook addon"
+            "description": "Webhook is an addon for the Laravel based Statamic CMS that allows you to create webhooks when certain events occur."
         },
         "laravel": {
             "providers": [
