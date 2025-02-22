@@ -15,7 +15,6 @@ use Statamic\Events\TaxonomySaved;
 use Statamic\Events\TermSaved;
 use Statamic\Facades\Collection;
 use Statamic\Facades\Taxonomy;
-use Statamic\Facades\Term;
 
 it('is listening for the EventSaved event and is handled by StatamicEventListener', function () {
     Event::fake();
@@ -26,7 +25,7 @@ it('is listening for the EventSaved event and is handled by StatamicEventListene
 it('sends a webhook when an entry is saved', function () {
     // arrange
     config()->set('webhook.webhook_url', 'https://example.com/webhook');
-    config()->set('webhook.webhook_entry_saved_event', true);
+    config()->set('webhook.events.entry_saved.enabled', true);
 
     Http::fake();
 
@@ -48,7 +47,7 @@ it('sends a webhook when an entry is saved', function () {
 it('does not send a webhook when an entry is saved if the config is set to false', function () {
     // arrange
     config()->set('webhook.webhook_url', 'https://example.com/webhook');
-    config()->set('webhook.webhook_entry_saved_event', false);
+    config()->set('webhook.events.entry_saved.enabled', false);
 
     Http::fake();
 
@@ -76,7 +75,7 @@ it('is listening for the EntryDeleted event and is handled by StatamicEventListe
 it('sends a webhook when an entry is deleted', function () {
     // arrange
     config()->set('webhook.webhook_url', 'https://example.com/webhook');
-    config()->set('webhook.webhook_entry_deleted_event', true);
+    config()->set('webhook.events.entry_deleted.enabled', true);
 
     Http::fake();
 
@@ -98,7 +97,7 @@ it('sends a webhook when an entry is deleted', function () {
 it('does not send a webhook when an entry is deleted if the config is set to false', function () {
     // arrange
     config()->set('webhook.webhook_url', 'https://example.com/webhook');
-    config()->set('webhook.webhook_entry_deleted_event', false);
+    config()->set('webhook.events.entry_deleted.enabled', false);
 
     Http::fake();
 
@@ -126,7 +125,7 @@ it('is listening for the CollectionSaved event and is handled by StatamicEventLi
 it('sends a webhook when a collection is saved', function () {
     // arrange
     config()->set('webhook.webhook_url', 'https://example.com/webhook');
-    config()->set('webhook.webhook_collection_saved_event', true);
+    config()->set('webhook.events.collection_saved.enabled', true);
 
     Http::fake();
 
@@ -144,7 +143,7 @@ it('sends a webhook when a collection is saved', function () {
 it('does not send a webhook when a collection is saved if the config is set to false', function () {
     // arrange
     config()->set('webhook.webhook_url', 'https://example.com/webhook');
-    config()->set('webhook.webhook_collection_saved_event', false);
+    config()->set('webhook.events.collection_saved.enabled', false);
 
     Http::fake();
 
@@ -168,7 +167,7 @@ it('is listening for the CollectionDeleted event and is handled by StatamicEvent
 it('sends a webhook when a collection is deleted', function () {
     // arrange
     config()->set('webhook.webhook_url', 'https://example.com/webhook');
-    config()->set('webhook.webhook_collection_deleted_event', true);
+    config()->set('webhook.events.collection_deleted.enabled', true);
 
     Http::fake();
 
@@ -186,7 +185,7 @@ it('sends a webhook when a collection is deleted', function () {
 it('does not send a webhook when a collection is deleted if the config is set to false', function () {
     // arrange
     config()->set('webhook.webhook_url', 'https://example.com/webhook');
-    config()->set('webhook.webhook_collection_deleted_event', false);
+    config()->set('webhook.events.collection_deleted.enabled', false);
 
     Http::fake();
 
@@ -210,7 +209,7 @@ it('is listening for the TaxonomySaved event and is handled by StatamicEventList
 it('sends a webhook when a taxonomy is saved', function () {
     // arrange
     config()->set('webhook.webhook_url', 'https://example.com/webhook');
-    config()->set('webhook.webhook_taxonomy_saved_event', true);
+    config()->set('webhook.events.taxonomy_saved.enabled', true);
 
     Http::fake();
 
@@ -228,7 +227,7 @@ it('sends a webhook when a taxonomy is saved', function () {
 it('does not send a webhook when a taxonomy is saved if the config is set to false', function () {
     // arrange
     config()->set('webhook.webhook_url', 'https://example.com/webhook');
-    config()->set('webhook.webhook_taxonomy_saved_event', false);
+    config()->set('webhook.events.taxonomy_saved.enabled', false);
 
     Http::fake();
 
@@ -252,7 +251,7 @@ it('is listening for the TaxonomyDeleted event and is handled by StatamicEventLi
 it('sends a webhook when a taxonomy is deleted', function () {
     // arrange
     config()->set('webhook.webhook_url', 'https://example.com/webhook');
-    config()->set('webhook.webhook_taxonomy_deleted_event', true);
+    config()->set('webhook.events.taxonomy_deleted.enabled', true);
 
     Http::fake();
 
@@ -270,7 +269,7 @@ it('sends a webhook when a taxonomy is deleted', function () {
 it('does not send a webhook when a taxonomy is deleted if the config is set to false', function () {
     // arrange
     config()->set('webhook.webhook_url', 'https://example.com/webhook');
-    config()->set('webhook.webhook_taxonomy_deleted_event', false);
+    config()->set('webhook.events.taxonomy_deleted.enabled', false);
 
     Http::fake();
 

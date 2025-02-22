@@ -10,51 +10,61 @@ tabs:
               display: 'Webhook URL'
               type: text
               read_only: false
+      -
+        fields:
           -
-            handle: webhook_entry_saved_event
+            handle: events.entry_saved.enabled
             field:
               display: 'Entry Saved Event'
               type: toggle
               read_only: false
+              width: 25
           -
-            handle: webhook_entry_deleted_event
+            handle: events.entry_deleted.enabled
             field:
               display: 'Entry Deleted Event'
               type: toggle
               read_only: false
+              width: 25
           -
-            handle: webhook_collection_saved_event
+            handle: events.collection_saved.enabled
             field:
               display: 'Collection Saved Event'
               type: toggle
               read_only: false
+              width: 25
           -
-            handle: webhook_collection_deleted_event
+            handle: events.collection_deleted.enabled
             field:
               display: 'Collection Deleted Event'
               type: toggle
               read_only: false
+              width: 25
           -
-            handle: webhook_taxonomy_saved_event
+            handle: events.taxonomy_saved.enabled
             field:
               display: 'Taxonomy Saved Event'
               type: toggle
               read_only: false
+              width: 25
           -
-            handle: webhook_taxonomy_deleted_event
+            handle: events.taxonomy_deleted.enabled
             field:
               display: 'Taxonomy Deleted Event'
               type: toggle
               read_only: false
+              width: 25
           -
-            handle: webhook_term_saved_event
+            handle: events.term_saved.enabled
             field:
               display: 'Term Saved Event'
               type: toggle
               read_only: false
+              width: 25
           -
-            handle: webhook_term_deleted_event
+            handle: events.term_deleted.enabled
             field:
               display: 'Term Deleted Event'
               type: toggle
               read_only: false
+              width: 25

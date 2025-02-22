@@ -4,12 +4,39 @@ declare(strict_types=1);
 
 return [
     'webhook_url' => 'https://api.bagwaa.dev/webhook',
-    'webhook_entry_saved_event' => true,
-    'webhook_entry_deleted_event' => true,
-    'webhook_collection_saved_event' => true,
-    'webhook_collection_deleted_event' => true,
-    'webhook_taxonomy_saved_event' => true,
-    'webhook_taxonomy_deleted_event' => true,
-    'webhook_term_saved_event' => true,
-    'webhook_term_deleted_event' => true,
+
+    'events' => [
+        'entry_saved' => [
+            'enabled' => true,
+            'class' => \Statamic\Events\EntrySaved::class,
+        ],
+        'entry_deleted' => [
+            'enabled' => true,
+            'class' => \Statamic\Events\EntryDeleted::class,
+        ],
+        'collection_saved' => [
+            'enabled' => true,
+            'class' => \Statamic\Events\CollectionSaved::class,
+        ],
+        'collection_deleted' => [
+            'enabled' => true,
+            'class' => \Statamic\Events\CollectionDeleted::class,
+        ],
+        'taxonomy_saved' => [
+            'enabled' => true,
+            'class' => \Statamic\Events\TaxonomySaved::class,
+        ],
+        'taxonomy_deleted' => [
+            'enabled' => true,
+            'class' => \Statamic\Events\TaxonomyDeleted::class,
+        ],
+        'term_saved' => [
+            'enabled' => true,
+            'class' => \Statamic\Events\TermSaved::class,
+        ],
+        'term_deleted' => [
+            'enabled' => true,
+            'class' => \Statamic\Events\TermDeleted::class,
+        ],
+    ],
 ];
