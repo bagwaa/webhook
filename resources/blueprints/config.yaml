@@ -12,7 +12,7 @@ tabs:
               type: text
               read_only: false
       -
-        display: 'Webhook Authentication Header'
+        display: 'Webhook Header'
         fields:
           -
             handle: webhook_auth_header_key
