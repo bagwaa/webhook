@@ -10,3 +10,51 @@ tabs:
               display: 'Webhook URL'
               type: text
               read_only: false
+          -
+            handle: webhook_entry_saved_event
+            field:
+              display: 'Entry Saved Event'
+              type: toggle
+              read_only: false
+          -
+            handle: webhook_entry_deleted_event
+            field:
+              display: 'Entry Deleted Event'
+              type: toggle
+              read_only: false
+          -
+            handle: webhook_collection_saved_event
+            field:
+              display: 'Collection Saved Event'
+              type: toggle
+              read_only: false
+          -
+            handle: webhook_collection_deleted_event
+            field:
+              display: 'Collection Deleted Event'
+              type: toggle
+              read_only: false
+          -
+            handle: webhook_taxonomy_saved_event
+            field:
+              display: 'Taxonomy Saved Event'
+              type: toggle
+              read_only: false
+          -
+            handle: webhook_taxonomy_deleted_event
+            field:
+              display: 'Taxonomy Deleted Event'
+              type: toggle
+              read_only: false
+          -
+            handle: webhook_term_saved_event
+            field:
+              display: 'Term Saved Event'
+              type: toggle
+              read_only: false
+          -
+            handle: webhook_term_deleted_event
+            field:
+              display: 'Term Deleted Event'
+              type: toggle
+              read_only: false
