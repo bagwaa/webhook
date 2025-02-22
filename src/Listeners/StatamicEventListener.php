@@ -20,43 +20,45 @@ class StatamicEventListener
     public function handle(Event $event): void
     {
         $webhookUrl = config('webhook.webhook_url');
-        $eventType = get_class($event);
 
-        if ($eventType === EntrySaved::class && !config('webhook.webhook_entry_saved_event')) {
-            return;
+        if ($event::class === EntrySaved::class && config('webhook.webhook_entry_saved_event')) {
+            $this->sendWebhook($webhookUrl, $event);
         }
 
-        if ($eventType === EntryDeleted::class && !config('webhook.webhook_entry_deleted_event')) {
-            return;
+        if ($event::class === EntryDeleted::class && config('webhook.webhook_entry_deleted_event')) {
+            $this->sendWebhook($webhookUrl, $event);
         }
 
-        if ($eventType === CollectionSaved::class && !config('webhook.webhook_collection_saved_event')) {
-            return;
+        if ($event::class === CollectionSaved::class && config('webhook.webhook_collection_saved_event')) {
+            $this->sendWebhook($webhookUrl, $event);
         }
 
-        if ($eventType === CollectionDeleted::class && !config('webhook.webhook_collection_deleted_event')) {
-            return;
+        if ($event::class === CollectionDeleted::class && config('webhook.webhook_collection_deleted_event')) {
+            $this->sendWebhook($webhookUrl, $event);
         }
 
-        if ($eventType === TaxonomySaved::class && !config('webhook.webhook_taxonomy_saved_event')) {
-            return;
+        if ($event::class === TaxonomySaved::class && config('webhook.webhook_taxonomy_saved_event')) {
+            $this->sendWebhook($webhookUrl, $event);
         }
 
-        if ($eventType === TaxonomyDeleted::class && !config('webhook.webhook_taxonomy_deleted_event')) {
-            return;
+        if ($event::class === TaxonomyDeleted::class && config('webhook.webhook_taxonomy_deleted_event')) {
+            $this->sendWebhook($webhookUrl, $event);
         }
 
-        if ($eventType === TermSaved::class && !config('webhook.webhook_term_saved_event')) {
-            return;
+        if ($event::class === TermSaved::class && config('webhook.webhook_term_saved_event')) {
+            $this->sendWebhook($webhookUrl, $event);
         }
 
-        if ($eventType === TermDeleted::class && !config('webhook.webhook_term_deleted_event')) {
-            return;
+        if ($event::class === TermDeleted::class && config('webhook.webhook_term_deleted_event')) {
+            $this->sendWebhook($webhookUrl, $event);
         }
 
         // Maybe we want to transform/obfuscate some of the event
         // data before sending it to the webhook?
+    }
 
+    private function sendWebhook(string $webhookUrl, Event $event): void
+    {
         Http::post($webhookUrl, [
             'entry' => $event,
         ]);
