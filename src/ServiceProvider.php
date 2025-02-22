@@ -29,12 +29,6 @@ class ServiceProvider extends AddonServiceProvider
         TermDeleted::class,
     ];
 
-    protected $routes = [
-        'web' => __DIR__ . '/../routes/web.php',
-        'cp' => __DIR__ . '/../routes/cp.php',
-        'actions' => __DIR__ . '/../routes/actions.php',
-    ];
-
     protected $publishAfterInstall = true; // not publishing after install
 
     protected $listen = [];
