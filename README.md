@@ -1,6 +1,6 @@
-# Webhook
+# Statamic Webhook
 
-> Webhook is a Statamic addon that sends statamic events to a webhook URL of your choice.
+> Statamic Webhook is a Statamic addon that sends statamic events to a webhook URL of your choice.
 
 ## Features
 
@@ -23,8 +23,6 @@ Publish the configuration file using the following command in the root of your p
 
 ``` bash
 php artisan vendor:publish --tag=bagwaa\webhook
-```
-
 ```
 
 ## How to Use
