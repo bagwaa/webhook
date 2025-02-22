@@ -1,14 +1,15 @@
 # Webhook
 
-> Webhook is a Statamic addon that does something pretty neat.
+> Webhook is a Statamic addon that sends statamic events to a webhook URL of your choice.
 
 ## Features
 
-This addon does:
+![Settings Page](screenshot.png)
 
-- This
-- And this
-- And even this
+This addon allows you to::
+
+- Specify a webhook URL 
+- Enable / Disable Certain Events
 
 ## How to Install
 
@@ -28,4 +29,4 @@ php artisan vendor:publish --tag=bagwaa\webhook
 
 ## How to Use
 
-In your Statamic control panel, you will see a new section called "Webhook". This is where you can add the webhook URL, each time an event happens in Statamic, the webhook will be triggered using a `POST` request.
+Within the control panel you can find the settings for the addon under the `Webhook` section. Here you can specify the URL you want to send the events to and enable / disable certain events to cut out some of the noise
