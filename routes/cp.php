@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::group([
     'middleware' => [
-        'statamic.cp.authenticated'
+        'statamic.cp.authenticated',
     ],
-    'namespace' => 'Bagwaa\Webhook\Http\Controllers'
+    'namespace' => 'Bagwaa\Webhook\Http\Controllers',
 ], function () {
     Route::get('/bagwaa/webhook/', [CpController::class, 'index'])->name('bagwaa-webhook.index');
     Route::post('/bagwaa/webhook/', [CpController::class, 'update'])->name('bagwaa-webhook.save');
