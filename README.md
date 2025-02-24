@@ -22,7 +22,7 @@ composer require bagwaa/webhook
 Publish the configuration file using the following command in the root of your project, this is needed to configure the addon.
 
 ``` bash
-php artisan vendor:publish --tag=bagwaa\webhook
+php artisan vendor:publish --tag=bagwaa/webhook
 ```
 
 ## How to Use
