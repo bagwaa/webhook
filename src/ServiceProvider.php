@@ -15,6 +15,7 @@ use Statamic\Events\TaxonomySaved;
 use Statamic\Events\TermDeleted;
 use Statamic\Events\TermSaved;
 use Statamic\Providers\AddonServiceProvider;
+use Statamic\Statamic;
 
 class ServiceProvider extends AddonServiceProvider
 {
@@ -56,8 +57,12 @@ class ServiceProvider extends AddonServiceProvider
         Forma::add('bagwaa/webhook');
 
         $this->publishes([
-            __DIR__ . '/../config/webhook.php' => config_path('webhook.php'), // can I not put this in the statamix subfolder in config?
+            __DIR__ . '/../config/webhook.php' => config_path('webhook.php'),
         ], 'bagwaa/webhook');
+
+        Statamic::afterInstalled(function ($command) {
+            $command->call('vendor:publish', ['--tag' => 'bagwaa/webhook']);
+        });
     }
 
     protected function loadHelpers(): void
