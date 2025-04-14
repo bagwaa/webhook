@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bagwaa\Webhook;
 
 use Bagwaa\Webhook\Listeners\StatamicEventListener;
+use Edalzell\Forma\ConfigController;
 use Edalzell\Forma\Forma;
 use Statamic\Events\CollectionDeleted;
 use Statamic\Events\CollectionSaved;
@@ -54,7 +55,7 @@ class ServiceProvider extends AddonServiceProvider
     {
         parent::bootAddon();
 
-        Forma::add('bagwaa/webhook');
+        Forma::add('bagwaa/webhook', ConfigController::class);
 
         $this->publishes([
             __DIR__ . '/../config/webhook.php' => config_path('webhook.php'),
