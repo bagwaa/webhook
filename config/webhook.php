@@ -38,6 +38,18 @@ return [
             'enabled' => true,
             'class' => \Statamic\Events\TermDeleted::class,
         ],
+        'user_created' => [
+            'enabled' => true,
+            'class' => \Statamic\Events\UserCreated::class,
+        ],
+        'user_deleted' => [
+            'enabled' => true,
+            'class' => \Statamic\Events\UserDeleted::class,
+        ],
+        'user_saved' => [
+            'enabled' => true,
+            'class' => \Statamic\Events\UserSaved::class,
+        ],
     ],
 
     'webhook_auth_header_key' => 'X-Webhook',

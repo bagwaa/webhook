@@ -87,3 +87,24 @@ tabs:
               type: toggle
               read_only: false
               width: 25
+          -
+            handle: events.user_created.enabled
+            field:
+              display: 'User Created Event'
+              type: toggle
+              read_only: false
+              width: 25
+          -
+            handle: events.user_deleted.enabled
+            field:
+              display: 'User Deleted Event'
+              type: toggle
+              read_only: false
+              width: 25
+          -
+            handle: events.user_saved.enabled
+            field:
+              display: 'User Saved Event'
+              type: toggle
+              read_only: false
+              width: 25
