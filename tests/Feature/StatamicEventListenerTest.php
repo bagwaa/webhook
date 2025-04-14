@@ -13,8 +13,12 @@ use Statamic\Events\EntrySaved;
 use Statamic\Events\TaxonomyDeleted;
 use Statamic\Events\TaxonomySaved;
 use Statamic\Events\TermSaved;
+use Statamic\Events\UserCreated;
+use Statamic\Events\UserDeleted;
+use Statamic\Events\UserSaved;
 use Statamic\Facades\Collection;
 use Statamic\Facades\Taxonomy;
+use Statamic\Facades\User;
 
 it('is listening for the EventSaved event and is handled by StatamicEventListener', function () {
     Event::fake();
@@ -40,7 +44,10 @@ it('sends a webhook when an entry is saved', function () {
 
     // assert
     Http::assertSent(function ($request) {
-        return $request->url() === 'https://example.com/webhook';
+        $event = $request->data()['entry'];
+
+        return $request->url() === 'https://example.com/webhook'
+            && $event instanceof EntrySaved;
     });
 });
 
@@ -64,7 +71,11 @@ it('can send a custom header with the webhook', function () {
 
     // assert
     Http::assertSent(function ($request) {
-        return $request->url() === 'https://example.com/webhook' && $request->hasHeader('X-Custom-Header', 'Custom Value');
+        $event = $request->data()['entry'];
+
+        return $request->url() === 'https://example.com/webhook'
+            && $event instanceof EntrySaved
+            && $request->hasHeader('X-Custom-Header', 'Custom Value');
     });
 });
 
@@ -86,7 +97,10 @@ it('does not send a webhook when an entry is saved if the config is set to false
 
     // assert
     Http::assertNotSent(function ($request) {
-        return $request->url() === 'https://example.com/webhook';
+        $event = $request->data()['entry'];
+
+        return $request->url() === 'https://example.com/webhook'
+            && $event instanceof EntrySaved;
     });
 });
 
@@ -114,7 +128,10 @@ it('sends a webhook when an entry is deleted', function () {
 
     // assert
     Http::assertSent(function ($request) {
-        return $request->url() === 'https://example.com/webhook';
+        $event = $request->data()['entry'];
+
+        return $request->url() === 'https://example.com/webhook'
+            && $event instanceof EntryDeleted;
     });
 });
 
@@ -136,7 +153,10 @@ it('does not send a webhook when an entry is deleted if the config is set to fal
 
     // assert
     Http::assertNotSent(function ($request) {
-        return $request->url() === 'https://example.com/webhook';
+        $event = $request->data()['entry'];
+
+        return $request->url() === 'https://example.com/webhook'
+            && $event instanceof EntryDeleted;
     });
 });
 
@@ -160,7 +180,10 @@ it('sends a webhook when a collection is saved', function () {
 
     // assert
     Http::assertSent(function ($request) {
-        return $request->url() === 'https://example.com/webhook';
+        $event = $request->data()['entry'];
+
+        return $request->url() === 'https://example.com/webhook'
+            && $event instanceof CollectionSaved;
     });
 });
 
@@ -178,7 +201,10 @@ it('does not send a webhook when a collection is saved if the config is set to f
 
     // assert
     Http::assertNotSent(function ($request) {
-        return $request->url() === 'https://example.com/webhook';
+        $event = $request->data()['entry'];
+
+        return $request->url() === 'https://example.com/webhook'
+            && $event instanceof CollectionSaved;
     });
 });
 
@@ -202,7 +228,10 @@ it('sends a webhook when a collection is deleted', function () {
 
     // assert
     Http::assertSent(function ($request) {
-        return $request->url() === 'https://example.com/webhook';
+        $event = $request->data()['entry'];
+
+        return $request->url() === 'https://example.com/webhook'
+            && $event instanceof CollectionDeleted;
     });
 });
 
@@ -220,7 +249,10 @@ it('does not send a webhook when a collection is deleted if the config is set to
 
     // assert
     Http::assertNotSent(function ($request) {
-        return $request->url() === 'https://example.com/webhook';
+        $event = $request->data()['entry'];
+
+        return $request->url() === 'https://example.com/webhook'
+            && $event instanceof CollectionDeleted;
     });
 });
 
@@ -244,7 +276,10 @@ it('sends a webhook when a taxonomy is saved', function () {
 
     // assert
     Http::assertSent(function ($request) {
-        return $request->url() === 'https://example.com/webhook';
+        $event = $request->data()['entry'];
+
+        return $request->url() === 'https://example.com/webhook'
+            && $event instanceof TaxonomySaved;
     });
 });
 
@@ -262,7 +297,10 @@ it('does not send a webhook when a taxonomy is saved if the config is set to fal
 
     // assert
     Http::assertNotSent(function ($request) {
-        return $request->url() === 'https://example.com/webhook';
+        $event = $request->data()['entry'];
+
+        return $request->url() === 'https://example.com/webhook'
+            && $event instanceof TaxonomySaved;
     });
 });
 
@@ -286,7 +324,10 @@ it('sends a webhook when a taxonomy is deleted', function () {
 
     // assert
     Http::assertSent(function ($request) {
-        return $request->url() === 'https://example.com/webhook';
+        $event = $request->data()['entry'];
+
+        return $request->url() === 'https://example.com/webhook'
+            && $event instanceof TaxonomyDeleted;
     });
 });
 
@@ -304,7 +345,10 @@ it('does not send a webhook when a taxonomy is deleted if the config is set to f
 
     // assert
     Http::assertNotSent(function ($request) {
-        return $request->url() === 'https://example.com/webhook';
+        $event = $request->data()['entry'];
+
+        return $request->url() === 'https://example.com/webhook'
+            && $event instanceof TaxonomyDeleted;
     });
 });
 
@@ -314,4 +358,146 @@ it('is listening for the TermSaved event and is handled by StatamicEventListener
     Event::assertListening(TermSaved::class, StatamicEventListener::class);
 });
 
-// Add test for when a term is saved and deleted
+it('sends a webhook when a user is created', function () {
+    // arrange
+    config()->set('webhook.webhook_url', 'https://example.com/webhook');
+    config()->set('webhook.events.user_created.enabled', true);
+
+    Http::fake();
+
+    $user = User::make()
+        ->email('test@example.com')
+        ->set('name', 'Test User')
+        ->save();
+
+    // act
+    UserCreated::dispatch($user);
+
+    // assert
+    Http::assertSent(function ($request) {
+        $event = $request->data()['entry'];
+
+        return $request->url() === 'https://example.com/webhook'
+            && $event instanceof UserCreated;
+    });
+});
+
+it('does not send a webhook when a user is created if the config is set to false', function () {
+    // arrange
+    config()->set('webhook.webhook_url', 'https://example.com/webhook');
+    config()->set('webhook.events.user_created.enabled', false);
+
+    Http::fake();
+
+    $user = User::make()
+        ->email('test@example.com')
+        ->set('name', 'Test User')
+        ->save();
+
+    // act
+    UserCreated::dispatch($user);
+
+    // assert
+    Http::assertNotSent(function ($request) {
+        $event = $request->data()['entry'];
+
+        return $request->url() === 'https://example.com/webhook'
+            && $event instanceof UserCreated;
+    });
+});
+
+it('sends a webhook when a user is deleted', function () {
+    // arrange
+    config()->set('webhook.webhook_url', 'https://example.com/webhook');
+    config()->set('webhook.events.user_deleted.enabled', true);
+
+    Http::fake();
+
+    $user = User::make()
+        ->email('test@example.com')
+        ->set('name', 'Test User')
+        ->save();
+
+    // act
+    UserDeleted::dispatch($user);
+
+    // assert
+    Http::assertSent(function ($request) {
+        $event = $request->data()['entry'];
+
+        return $request->url() === 'https://example.com/webhook'
+            && $event instanceof UserDeleted;
+    });
+});
+
+it('does not send a webhook when a user is deleted if the config is set to false', function () {
+    // arrange
+    config()->set('webhook.webhook_url', 'https://example.com/webhook');
+    config()->set('webhook.events.user_deleted.enabled', false);
+
+    Http::fake();
+
+    $user = User::make()
+        ->email('test@example.com')
+        ->set('name', 'Test User')
+        ->save();
+
+    // act
+    UserDeleted::dispatch($user);
+
+    // assert
+    Http::assertNotSent(function ($request) {
+        $event = $request->data()['entry'];
+
+        return $request->url() === 'https://example.com/webhook'
+            && $event instanceof UserDeleted;
+    });
+});
+
+it('sends a webhook when a user is saved', function () {
+    // arrange
+    config()->set('webhook.webhook_url', 'https://example.com/webhook');
+    config()->set('webhook.events.user_saved.enabled', true);
+
+    Http::fake();
+
+    $user = User::make()
+        ->email('test@example.com')
+        ->set('name', 'Test User')
+        ->save();
+
+    // act
+    UserSaved::dispatch($user);
+
+    // assert
+    Http::assertSent(function ($request) {
+        $event = $request->data()['entry'];
+
+        return $request->url() === 'https://example.com/webhook'
+            && $event instanceof UserSaved;
+    });
+});
+
+it('does not send a webhook when a user is saved if the config is set to false', function () {
+    // arrange
+    config()->set('webhook.webhook_url', 'https://example.com/webhook');
+    config()->set('webhook.events.user_saved.enabled', false);
+
+    Http::fake();
+
+    $user = User::make()
+        ->email('test@example.com')
+        ->set('name', 'Test User')
+        ->save();
+
+    // act
+    UserSaved::dispatch($user);
+
+    // assert
+    Http::assertNotSent(function ($request) {
+        $event = $request->data()['entry'];
+
+        return $request->url() === 'https://example.com/webhook'
+            && $event instanceof UserSaved;
+    });
+});

@@ -15,12 +15,15 @@ use Statamic\Events\TaxonomyDeleted;
 use Statamic\Events\TaxonomySaved;
 use Statamic\Events\TermDeleted;
 use Statamic\Events\TermSaved;
+use Statamic\Events\UserCreated;
+use Statamic\Events\UserDeleted;
+use Statamic\Events\UserSaved;
 use Statamic\Providers\AddonServiceProvider;
 use Statamic\Statamic;
 
 class ServiceProvider extends AddonServiceProvider
 {
-    protected $eventsToListenFor = [
+    protected array $eventsToListenFor = [
         EntrySaved::class,
         EntryDeleted::class,
         CollectionSaved::class,
@@ -29,9 +32,12 @@ class ServiceProvider extends AddonServiceProvider
         TaxonomyDeleted::class,
         TermSaved::class,
         TermDeleted::class,
+        UserCreated::class,
+        UserDeleted::class,
+        UserSaved::class,
     ];
 
-    protected $publishAfterInstall = true; // not publishing after install
+    protected $publishAfterInstall = true;
 
     protected $listen = [];
 
